@@ -24,3 +24,20 @@ MS = df.loc[:,'MS']
 
 #Wells Fargo
 WFC = df.loc[:,'WFC']
+
+tickers = ['BAC','C','GS','JPM','MS','WFC']
+
+####
+#### This is redundant but done to practice concat
+####
+bank_stocks = pd.concat([df[tickers]],axis=1)
+bank_stocks.columns.names = ['Bank Ticker','Stock Info']
+
+max_close = bank_stocks.xs(key='Close',axis=1,level=1).max()
+
+returns = pd.DataFrame()
+
+for bank in tickers:
+    returns[bank] = bank_stocks.loc[:,bank]['Close'].pct_change()
+
+print(returns.head())
