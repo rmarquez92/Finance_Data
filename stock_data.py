@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 from pandas_datareader import data, wb
 import datetime
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 df = pd.read_pickle('all_banks')
 start = datetime.datetime(2006,1,1)
@@ -38,6 +40,13 @@ max_close = bank_stocks.xs(key='Close',axis=1,level=1).max()
 returns = pd.DataFrame()
 
 for bank in tickers:
-    returns[bank] = bank_stocks.loc[:,bank]['Close'].pct_change()
+    returns[bank + ' Returns'] = bank_stocks.loc[:,bank]['Close'].pct_change()
 
-print(returns.head())
+# sns.pairplot(data=returns[1:])
+# plt.show()
+
+min_returns_dates = returns.idxmin()
+max_returns_dates = returns.idxmax()
+std_banks = returns.std()
+std_banks_2015 = returns['2015-01-01':'2015-12-31'].std()
+print(std_banks_2015)
