@@ -4,6 +4,9 @@ from pandas_datareader import data, wb
 import datetime
 import matplotlib.pyplot as plt
 import seaborn as sns
+import plotly
+from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
+import cufflinks as cf
 
 df = pd.read_pickle('all_banks')
 start = datetime.datetime(2006,1,1)
@@ -49,4 +52,21 @@ min_returns_dates = returns.idxmin()
 max_returns_dates = returns.idxmax()
 std_banks = returns.std()
 std_banks_2015 = returns['2015-01-01':'2015-12-31'].std()
-print(std_banks_2015)
+#print(std_banks_2015)
+
+####
+#### Plot defined as functions to manage number of figures
+#### showing
+####
+
+
+def ms_distplot():
+    sns.distplot(returns['MS Returns']['2015-01-01':'2015-12-31'],bins=100)
+    plt.show()
+
+def c_distplot():
+    sns.distplot(returns['C Returns']['2008-01-01':'2008-12-31'],bins=100)
+    plt.show()
+
+#ms_distplot()
+#c_distplot()
