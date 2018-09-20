@@ -82,4 +82,18 @@ def eod_close_line_plot():
     plt.legend(tickers)
     plt.show()
 
-eod_close_line_plot()
+#eod_close_line_plot()
+
+avg = pd.DataFrame()
+
+
+#Create 30-day Moving Average DF
+for tick in range(6):
+    for row in range(29,len(bank_stocks)):
+        avg.loc[row,tickers[tick] + ' 30-Day Moving Average'] = bank_stocks.xs('Close',axis=1,level=1).iloc[row-29:row,tick].mean()
+avg.set_index(keys=bank_stocks.index[29:],inplace=True)
+
+def price_vs_moving_avg():
+    pass
+
+print(avg)
