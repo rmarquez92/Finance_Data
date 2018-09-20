@@ -70,3 +70,16 @@ def c_distplot():
 
 #ms_distplot()
 #c_distplot()
+
+
+#### MORE VISUALIZATION SECTION
+sns.set_style('whitegrid')
+cf.go_offline()
+init_notebook_mode(connected=True)
+
+def eod_close_line_plot():
+    bank_stocks.xs('Close',axis=1,level=1).plot()
+    plt.legend(tickers)
+    plt.show()
+
+eod_close_line_plot()
