@@ -106,4 +106,11 @@ def price_vs_moving_avg(bank_tick):
     plt.tight_layout()
     plt.show()
 
-price_vs_moving_avg('BAC')
+#price_vs_moving_avg('BAC')
+
+def close_heatmap():
+    bank_corr = bank_stocks.xs('Close',axis=1,level=1).corr()
+    sns.heatmap(data=bank_corr,annot=True,cmap='coolwarm')
+    plt.show()
+
+#close_heatmap()
