@@ -93,7 +93,17 @@ for tick in range(6):
         avg.loc[row,tickers[tick] + ' 30-Day Moving Average'] = bank_stocks.xs('Close',axis=1,level=1).iloc[row-29:row,tick].mean()
 avg.set_index(keys=bank_stocks.index[29:],inplace=True)
 
-def price_vs_moving_avg():
-    pass
+def price_vs_moving_avg(bank_tick):
+    close = bank_stocks.xs('Close',axis=1,level=1).loc['2008-01-01':'2008-12-31'][bank_tick]
+    t_day_avg = avg.loc['2008-01-30':'2008-12-31'][bank_tick + ' 30-Day Moving Average']
 
-print(avg)
+    fig = plt.Figure(figsize=(12,2))
+    plt.plot(t_day_avg)
+    plt.plot(close)
+
+    plt.legend(['30-Day Avg',bank_tick +' Close'])
+
+    plt.tight_layout()
+    plt.show()
+
+price_vs_moving_avg('BAC')
