@@ -4,8 +4,9 @@ from pandas_datareader import data, wb
 import datetime
 import matplotlib.pyplot as plt
 import seaborn as sns
-import plotly
+import plotly.offline as pyo
 from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
+import plotly.graph_objs as go
 import cufflinks as cf
 
 df = pd.read_pickle('all_banks')
@@ -121,3 +122,20 @@ def close_cluster():
     plt.show()
 
 #close_cluster()
+
+def bank_candle(bank_ticker):
+    df = bank_stocks[bank_ticker].reset_index()
+    #py.plot(kind='candle')
+
+    data = go.Candlestick(x=df['Date'],
+                          open=df['Open'],
+                          high=df['High'],
+                          low=df['Low'],
+                          close=df['Close'])
+    layout = go.Layout(xaxis=dict(rangeslider
+                        =dict(visible=False)))
+
+    fig = go.Figure(data=[data],layout=layout)
+    pyo.plot(fig)
+
+bank_candle('BAC')
