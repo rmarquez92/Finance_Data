@@ -114,3 +114,10 @@ def close_heatmap():
     plt.show()
 
 #close_heatmap()
+
+def close_cluster():
+    bank_corr = bank_stocks.xs('Close',axis=1,level=1).corr()
+    sns.clustermap(bank_corr,annot=True)
+    plt.show()
+
+#close_cluster()
